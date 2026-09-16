@@ -86,6 +86,9 @@
     background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 11px;box-shadow:var(--shadow-sm)}
   .phasebar .ph .dot{width:8px;height:8px;border-radius:50%;background:var(--blue)}
   .phasebar .ph .cnt{color:var(--gray-2);font-weight:500;font-size:11.5px}
+  .phasebar .ph .nums{display:flex;gap:4px}
+  .phasebar .ph .num{display:flex;align-items:center;justify-content:center;width:18px;height:18px;
+    border-radius:50%;background:var(--blue);color:#fff;font-size:10.5px;font-weight:700}
   .phasebar .arrow{align-self:center;color:var(--gray-2);font-size:12px}
   @media(max-width:720px){.phasebar .arrow{display:none}}
   .timeline{position:relative;margin-top:8px}
@@ -692,11 +695,12 @@ const STAGES = window.PROCESS_STAGES||[];
 // phase summary bar
 const pb=document.getElementById("phasebar");
 if(pb){
-  const order=[]; const cnt={};
-  STAGES.forEach(s=>{ if(!(s.phase in cnt)){order.push(s.phase);cnt[s.phase]=0;} cnt[s.phase]++; });
+  let n=0; const order=[]; const groups={};
+  STAGES.forEach(s=>{ if(!(s.phase in groups)){order.push(s.phase);groups[s.phase]=[];} n++; groups[s.phase].push(n); });
   order.forEach((ph,idx)=>{
+    const nums=groups[ph].map(x=>`<span class="num">${x}</span>`).join("");
     const chip=document.createElement("div");chip.className="ph";
-    chip.innerHTML=`<span class="dot"></span>${ph}<span class="cnt">${cnt[ph]}단계</span>`;
+    chip.innerHTML=`${ph}<span class="nums">${nums}</span>`;
     pb.appendChild(chip);
     if(idx<order.length-1){const a=document.createElement("span");a.className="arrow";a.textContent="→";pb.appendChild(a);}
   });
