@@ -55,6 +55,11 @@
   .theme-btn{background:none;border:1px solid var(--line);color:var(--ink-2);border-radius:8px;
     width:38px;height:38px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex:none}
   .theme-btn:hover{background:var(--line-2)}
+  @media(max-width:720px){
+    .topbar .wrap{flex-wrap:wrap;height:auto;padding-top:12px;padding-bottom:0}
+    .navlinks{order:4;width:100%;margin:10px -24px 0;padding:8px 24px 10px;border-top:1px solid var(--line);
+      overflow-x:auto;-webkit-overflow-scrolling:touch}
+  }
 
   main{padding:0 0 40px}
   .panel{display:none}
@@ -189,7 +194,6 @@
       <button class="active" data-p="home">개요</button>
       <button data-p="templates">양식 자료실</button>
       <button data-p="gen">안내 메일 생성</button>
-      <button data-p="guide">작성 가이드</button>
     </div>
     <div class="spacer"></div>
     <button class="theme-btn" id="themeBtn" title="화면 모드 전환">🌙</button>
@@ -261,27 +265,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="panel" id="guide">
-    <div class="wrap">
-      <div class="section-head" style="margin-top:44px">
-        <div class="k">GUIDELINES</div>
-        <h2>작성 가이드</h2>
-        <p>양식 작성 시 지켜야 할 공통 규칙입니다. 상세 매뉴얼은 <a href="#" data-goto="templates">양식 자료실의 작성 매뉴얼</a>에서 받아 확인하세요.</p>
-      </div>
-      <div class="rule-list">
-        <div class="rule wide">
-          <h4>카테고리 순서 고정</h4>
-          <p>모든 양식에서 회원 → 상품 → 주문 → 과거주문 → 쿠폰 → 게시판 순서를 유지합니다. 검토 결과와 이전 결과 양식의 항목명을 동일하게 맞춰, 고객이 두 문서를 나란히 비교할 수 있게 합니다.</p>
-        </div>
-        <div class="rule"><h4>확인 요청 vs 참고</h4><p>답변이 꼭 필요한 항목만 '확인 요청 사항'에, 단순 정보성 안내는 '특이사항(참고)'에 나눠 적습니다.</p></div>
-        <div class="rule"><h4>협의사항 반영 내역</h4><p>이전 결과 양식 하단에, 검토 단계에서 회신받은 항목이 어떻게 처리됐는지 1:1로 정리합니다.</p></div>
-        <div class="rule"><h4>체크 표시 방식</h4><p>대괄호 표시는 일반 텍스트라 PC·모바일 어디서든 깨지지 않습니다. 완료 시 괄호 안에 V로 표시합니다.</p></div>
-        <div class="rule"><h4>파일명 규칙</h4><p>구분_몰이름_날짜 형식. 예: 데이터_검토_결과_자료_은비몰_260810</p></div>
-      </div>
-      <div class="callout"><b>자주 하는 실수</b> — 참고 정보를 확인 요청 사항에 섞어 넣기 · 두 양식의 카테고리 순서가 서로 다름 · 이전 결과에 협의사항 반영 내역 누락. 이 세 가지를 특히 주의하세요.</div>
     </div>
   </section>
 </main>
