@@ -119,9 +119,6 @@
   .sb .sblab{font-size:11px;color:var(--gray-2);font-weight:600;display:flex;justify-content:space-between;margin-bottom:4px}
   .sb .bar{height:5px;margin-bottom:0}
   .sb.na .sblab{opacity:.45}
-  .pjcard .issue{margin-top:13px;padding-top:12px;border-top:1px dashed var(--line);
-    font-size:12.6px;color:var(--ink-2);line-height:1.55}
-  .pjcard .issue b{color:var(--gray);font-weight:600;margin-right:5px}
 
   .donetable{width:100%;border-collapse:collapse;font-size:13px;background:var(--paper);
     border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
@@ -514,8 +511,7 @@ window.PROCESS_STAGES = [
     client: "검토 자료를 확인하고, 회신이 필요한 항목을 체크해 상점으로 전달합니다.",
     points: [
       "관리자 다운로드 불가 데이터는 고객센터 백업 요청 안내",
-      "이전 소요기간(영업일 2~3일) 및 희망 일정 협의",
-      "디자인 스킨 미선택 시 반응형 스킨 추천"
+      "이전 소요기간(영업일 2~3일) 및 희망 일정 협의"
     ],
     doc: "데이터 검토 결과 템플릿 · 검토 결과 메일"
   },
@@ -527,8 +523,8 @@ window.PROCESS_STAGES = [
     points: [
       "비밀번호는 구조상 이전이 불가한 경우, 데이터팀 검토 결과에 따라 임시 비밀번호 규칙(휴대폰 뒷 4자리 등)으로 생성·안내",
       "회원그룹 신규 생성 · 적립금 유효기간 기준 안내",
-      "주문·게시판은 오픈 전 최신 데이터로 일괄 이전 예정 고지",
-      "회신 기한 명시 · 미회신 시 확인 간주 후 다음 단계 진행"
+      "이전된 주문DB는 참고용 데이터로, 오픈 전 최신 데이터로 일괄 이전 예정 고지 (1차 데이터 이전 시 진행 안 함)",
+      "미회신 시 오픈 일정 지연 가능성을 안내하되, 특정 기한을 못박지 않음"
     ],
     doc: "1차 이전 결과 템플릿 · 이전 결과 메일"
   },
@@ -541,7 +537,7 @@ window.PROCESS_STAGES = [
       "스킨 선택 → 요청서 전달 → 자료 수급 → 세팅 → 시안 확인 → 확정 → 운영 가이드 전달 순으로 진행",
       "메인페이지 무상 세팅 범위(로고·배너·카테고리명) 안내",
       "시안 수정사항은 항목별로 일괄 정리해 회신 요청",
-      "회신 기한 명시 · 미회신 시 현재 시안으로 확정 간주",
+      "미회신 시 오픈 일정 지연 가능성을 안내하되, 특정 기한을 못박지 않음",
       "확정 후 스킨별 사이트 운영 가이드 · 배너교체 요청서 전달",
       "무상 범위 외 커스텀·튜닝은 별도 비용 발생 고지"
     ],
@@ -682,7 +678,7 @@ window.MAIL_TEMPLATES = [
     title: "1차 데이터 이전 결과 안내",
     desc: "1차 데이터 이전 완료 후 결과를 첨부파일로 전달하고 특이사항 공유를 요청하는 메일.",
     subject: "[메이크샵] {{mall}} 1차 데이터 이전 결과 안내",
-    fields: ["mall","person","pm","deadline"],
+    fields: ["mall","person","pm"],
     body:
 `{{person}}, 안녕하세요.
 메이크샵 {{pm}}입니다.
@@ -698,12 +694,12 @@ window.MAIL_TEMPLATES = [
 ----------------------
 [확인 회신 요청]
 
-원활한 일정 진행을 위해 {{deadline}}까지 아래 중 해당하는 항목으로 회신 부탁드립니다.
+검토하신 후 원활한 일정 진행을 위해 아래 중 해당하는 항목으로 회신 부탁드립니다.
 
   □ 안내주신 내용 확인했으며, 이대로 다음 단계 진행 부탁드립니다.
   □ 확인이 필요한 사항이 있습니다. → 내용 :
 
-※ {{deadline}}까지 별도 회신이 없으실 경우, 안내드린 내용으로 확인하신 것으로 간주하고 다음 단계를 진행합니다.
+※ 회신이 없으실 경우 다음 단계 진행이 지연되어, 사이트 오픈 일정에도 영향이 있을 수 있습니다.
 ----------------------
 
 감사합니다.
@@ -737,7 +733,7 @@ window.MAIL_TEMPLATES = [
     title: "디자인 세팅 완료 · 시안 확인 안내",
     desc: "메인페이지 세팅 완료 후 시안 링크를 전달하고, 수정사항을 일괄 정리해 요청하도록 안내하는 메일.",
     subject: "[메이크샵] {{mall}} 디자인 세팅 완료 및 시안 확인 안내",
-    fields: ["mall","person","pm","deadline"],
+    fields: ["mall","person","pm"],
     body:
 `{{person}}, 안녕하세요.
 메이크샵 {{pm}}입니다.
@@ -754,13 +750,13 @@ window.MAIL_TEMPLATES = [
 ----------------------
 [확인 회신 요청]
 
-원활한 일정 진행을 위해 {{deadline}}까지 아래 중 해당하는 항목으로 회신 부탁드립니다.
+검토하신 후 원활한 일정 진행을 위해 아래 중 해당하는 항목으로 회신 부탁드립니다.
 
   □ 시안 확인했으며, 이대로 확정 부탁드립니다.
   □ 수정이 필요한 사항이 있습니다. → 내용 :
 
 ※ 수정사항은 일괄로 정리해 회신해 주시면 한 번에 반영해드립니다.
-※ {{deadline}}까지 별도 회신이 없으실 경우, 현재 시안으로 확정하신 것으로 간주하고 다음 단계를 진행합니다.
+※ 회신이 없으실 경우 다음 단계 진행이 지연되어, 사이트 오픈 일정에도 영향이 있을 수 있습니다.
 ※ 확정 이후 발생하는 추가 수정은 무상 지원 범위를 벗어날 수 있어, 별도 상담·견적이 필요할 수 있습니다.
 ----------------------
 
@@ -1061,17 +1057,17 @@ document.getElementById("copySubjBtn").addEventListener("click",()=>navigator.cl
 
 /* ================= 프로젝트 현황 ================= */
 // 기준일: 주간 현황 시트 스냅샷. 시트 갱신 시 SNAPSHOT_DATE 와 아래 데이터를 함께 수정하세요.
+// 규칙: '동서샵(운영대행)'과 '고맛나루장터(운영대행)'는 시트에 있어도 이 현황판에는 항상 제외합니다.
+// 규칙: '핵심 이슈 / 다음 액션'(issue) 항목은 화면에 노출하지 않으며, 데이터로도 저장하지 않습니다.
 const SNAPSHOT_DATE = "2026-09-17";
 const PROJECTS = [
   // 진행중
   {name:"모두다몰", acct:"inpros100", pm:"오은비/최상건", start:"2026-06-10", due:"2026-09-16",
-   pct:60, stage:"중반", diff:3, sub:{구축:50, DB이전:60, 디자인:null, 퍼블리싱:70, 개발:null},
-   issue:"1차 데이터 이전 결과 자료 전달 완료 / 상점 디자인 자료 수급 후 퍼블리싱 작업 착수 예정"},
+   pct:60, stage:"중반", diff:3, sub:{구축:50, DB이전:60, 디자인:null, 퍼블리싱:70, 개발:null}},
   {name:"알캠몰", acct:"alcammall", pm:"오은비/최상건", start:"2026-08-04", due:"2026-09-30",
-   pct:13, stage:"초기", diff:3, sub:{구축:10, DB이전:30, 디자인:null, 퍼블리싱:0, 개발:null},
-   issue:"상점 수급 요청 자료 회신 대기 (9월 말 오픈 희망으로 내부 검토 후 회신 예정 / 데이터 검토 결과 자료는 안내 완료)"},
+   pct:13, stage:"초기", diff:3, sub:{구축:10, DB이전:30, 디자인:null, 퍼블리싱:0, 개발:null}},
   {name:"장만수과메기", acct:"gmgfood2008", pm:"오은비", start:"", due:"2026-10-20",
-   pct:10, stage:"착수", diff:3, sub:{구축:10, DB이전:null, 디자인:null, 퍼블리싱:null, 개발:null}, issue:""},
+   pct:10, stage:"착수", diff:3, sub:{구축:10, DB이전:null, 디자인:null, 퍼블리싱:null, 개발:null}},
 ];
 const CLOSED = [
   {name:"주리에떼", acct:"eagleju1", pm:"오은비/서우진", start:"2026-04-14", due:"2026-06-09", stage:"오픈완료", diff:3},
@@ -1184,7 +1180,6 @@ const CLOSED = [
         <span class="pct${low?" low":""}">${p.pct}%</span></div>
       <div class="bar${low?" low":""}"><span style="width:${p.pct}%"></span></div>
       <div class="subbars">${subs}</div>
-      ${p.issue?`<div class="issue"><b>핵심 이슈 / 다음 액션</b>${p.issue}</div>`:``}
     </div>`;
   }).join("");
 
