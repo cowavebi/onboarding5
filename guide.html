@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메이크샵 쇼핑몰 이전 프로세스 안내</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#227AFF; --blue-soft:#E8F1FF; --ink:#000000; --text:#1d2433; --muted:#5d6678;
+  --line:#dfe4ec; --bg:#FFFFFF; --panel:#F6F8FB; --warn:#B4531B; --warn-soft:#FFF3EA;
+  --free:#16794A; --free-soft:#E7F6EE;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --blue:#5C9DFF; --blue-soft:#14233d; --ink:#ffffff; --text:#dfe5ef; --muted:#9aa4b6;
+    --line:#2b3342; --bg:#0f141c; --panel:#161d28; --warn:#FFA56B; --warn-soft:#2d1e14;
+    --free:#5fd39a; --free-soft:#12291e;
+  }
+}
+:root[data-theme="dark"]{
+  --blue:#5C9DFF; --blue-soft:#14233d; --ink:#ffffff; --text:#dfe5ef; --muted:#9aa4b6;
+  --line:#2b3342; --bg:#0f141c; --panel:#161d28; --warn:#FFA56B; --warn-soft:#2d1e14;
+  --free:#5fd39a; --free-soft:#12291e;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.7;word-break:keep-all}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* hero */
+header.hero{border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;padding:22px 0;font-weight:700;color:var(--ink)}
+.brand i{width:14px;height:14px;border-radius:50%;background:var(--blue);display:inline-block}
+.hero-body{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;padding:40px 0 56px;align-items:center}
+.hero h1{font-size:clamp(30px,4.4vw,46px);line-height:1.25;margin:0 0 18px;color:var(--ink);letter-spacing:-.02em}
+.hero p.lead{font-size:18px;color:var(--muted);margin:0;max-width:34em}
+/* route graphic */
+.route{position:relative;padding:8px 0}
+.route svg{width:100%;height:auto;display:block}
+.route .st{fill:var(--bg);stroke:var(--blue);stroke-width:3}
+.route .st.end{fill:var(--blue)}
+.route .ln{stroke:var(--blue);stroke-width:6;fill:none;stroke-linecap:round}
+.route .ln.old{stroke:var(--line)}
+.route text{font-family:inherit;font-size:13px;fill:var(--muted)}
+.route text.big{font-size:15px;font-weight:600;fill:var(--ink)}
+
+/* layout */
+.layout{display:grid;grid-template-columns:220px 1fr;gap:48px;padding:48px 0 80px}
+nav.toc{position:sticky;top:20px;align-self:start}
+nav.toc ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+nav.toc a{display:block;padding:7px 0 7px 16px;margin-left:-2px;border-left:2px solid transparent;
+  color:var(--muted);text-decoration:none;font-size:14.5px}
+nav.toc a:hover{color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-left-color:var(--blue);font-weight:600}
+nav.toc .sub{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+
+h2{font-size:26px;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em}
+.sec{margin-bottom:72px;scroll-margin-top:20px}
+.sec > p.desc{color:var(--muted);margin:0 0 28px;max-width:44em}
+
+/* stations */
+.stations{list-style:none;margin:0;padding:0;position:relative}
+.stations::before{content:"";position:absolute;left:19px;top:8px;bottom:8px;width:4px;background:var(--blue);border-radius:2px}
+.station{position:relative;padding:0 0 36px 64px}
+.station:last-child{padding-bottom:0}
+.dot{position:absolute;left:0;top:0;width:42px;height:42px;border-radius:50%;background:var(--bg);
+  border:4px solid var(--blue);display:grid;place-items:center;font-weight:700;color:var(--blue);font-size:15px}
+.station.final .dot{background:var(--blue);color:#fff}
+.station h3{margin:4px 0 4px;font-size:20px;color:var(--ink)}
+.station .summary{margin:0 0 14px;color:var(--muted)}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.roles > div{padding:16px 18px}
+.roles > div + div{border-left:1px solid var(--line);background:var(--blue-soft)}
+.roles h4{margin:0 0 6px;font-size:14px;color:var(--ink)}
+.roles ul{margin:0;padding-left:18px;font-size:15px}
+.roles li{margin:2px 0}
+.note{margin-top:12px;padding:12px 16px;border-radius:8px;background:var(--warn-soft);color:var(--text);font-size:14.5px}
+.note b{color:var(--warn)}
+.path{display:inline-block;font-size:13px;color:var(--muted);background:var(--panel);border:1px solid var(--line);
+  border-radius:6px;padding:1px 8px;margin-top:2px}
+details.more{margin-top:12px;border:1px solid var(--line);border-radius:8px}
+details.more summary{cursor:pointer;padding:10px 16px;font-weight:600;font-size:14.5px;color:var(--ink)}
+details.more > div{padding:0 16px 14px;font-size:14.5px}
+
+/* scope */
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.scope > div{border-radius:10px;padding:18px 20px}
+.scope .free{background:var(--free-soft)}
+.scope .paid{background:var(--warn-soft)}
+.scope h4{margin:0 0 6px}
+.scope .free h4{color:var(--free)} .scope .paid h4{color:var(--warn)}
+.scope ul{margin:0;padding-left:18px}
+
+/* checklist */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:0}
+.tabs button{font:inherit;font-weight:600;background:none;border:0;padding:10px 18px;color:var(--muted);
+  cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+.progress{display:flex;align-items:center;gap:12px;padding:14px 0;font-size:14px;color:var(--muted)}
+.bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--blue);transition:width .25s}
+.group{margin:8px 0 20px}
+.group h4{margin:0 0 4px;font-size:14px;color:var(--muted);font-weight:600}
+.check{display:grid;grid-template-columns:28px 1fr;gap:4px 10px;padding:12px 4px;border-bottom:1px solid var(--line);cursor:pointer}
+.check input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--blue);cursor:pointer}
+.check .t{font-weight:600;color:var(--ink)}
+.check .t em{font-style:normal;font-size:12px;font-weight:600;color:#fff;background:var(--blue);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.check .d{grid-column:2;font-size:14.5px;color:var(--muted)}
+.check.done .t{color:var(--muted);text-decoration:line-through}
+.reset{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:3px 10px;cursor:pointer}
+
+/* docs & faq */
+.docs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.doc{border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:8px;padding:16px 20px}
+.doc h4{margin:0 0 4px;color:var(--ink)}
+.doc p{margin:0;font-size:15px;color:var(--muted)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;color:var(--ink)}
+.faq details p{margin:0 0 16px;color:var(--text)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.links a{border:1px solid var(--line);border-radius:6px;padding:6px 12px;text-decoration:none;font-size:14px}
+
+footer{background:var(--panel);border-top:1px solid var(--line);padding:36px 0;font-size:14.5px;color:var(--muted)}
+footer strong{color:var(--ink)}
+
+@media (max-width:860px){
+  .hero-body{grid-template-columns:1fr;gap:24px;padding:24px 0 40px}
+  .layout{grid-template-columns:1fr;gap:0;padding-top:24px}
+  nav.toc{position:static;margin-bottom:32px;overflow-x:auto}
+  nav.toc ol{display:flex;border-left:0;border-bottom:2px solid var(--line);white-space:nowrap}
+  nav.toc a{border-left:0;border-bottom:2px solid transparent;margin:0 0 -2px;padding:8px 12px}
+  nav.toc a.on{border-bottom-color:var(--blue)}
+  nav.toc .sub{display:none}
+  .roles,.scope,.docs{grid-template-columns:1fr}
+  .roles > div + div{border-left:0;border-top:1px solid var(--line)}
+  .station{padding-left:56px}
+}
+@media print{nav.toc,.tabs,.reset{display:none}.layout{display:block}.panel{display:block!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><i aria-hidden="true"></i>메이크샵 이전센터</div>
+    <div class="hero-body">
+      <div>
+        <h1>기존 쇼핑몰에서 메이크샵까지,<br>이전은 이렇게 진행됩니다</h1>
+        <p class="lead">담당 매니저가 데이터 검토부터 오픈 후 정리까지 함께합니다. 단계마다 메이크샵이 하는 일과 고객님이 준비하실 일을 나눠 정리했으니, 진행 중 언제든 이 페이지를 열어 확인해 주세요.</p>
+      </div>
+      <div class="route" aria-hidden="true">
+        <svg viewBox="0 0 440 200">
+          <path class="ln old" d="M30 100 H90"/>
+          <path class="ln" d="M90 100 H200 Q220 100 220 80 V60 Q220 40 240 40 H410"/>
+          <circle class="st" cx="30" cy="100" r="11" style="stroke:var(--muted)"/>
+          <circle class="st" cx="120" cy="100" r="9"/>
+          <circle class="st" cx="180" cy="100" r="9"/>
+          <circle class="st" cx="280" cy="40" r="9"/>
+          <circle class="st" cx="340" cy="40" r="9"/>
+          <circle class="st end" cx="410" cy="40" r="13"/>
+          <text x="8" y="136" class="big">기존 쇼핑몰</text>
+          <text x="104" y="130">데이터</text>
+          <text x="166" y="130">디자인</text>
+          <text x="264" y="72">설정</text>
+          <text x="326" y="72">오픈</text>
+          <text x="378" y="80" class="big">메이크샵</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="목차">
+    <ol>
+      <li><a href="#process">전체 진행 단계</a></li>
+      <li><a href="#design">디자인 지원 범위</a></li>
+      <li><a href="#checklist">오픈 전·후 체크리스트</a></li>
+      <li><a href="#docs">받으시는 안내 자료</a></li>
+      <li><a href="#faq">자주 묻는 질문</a></li>
+    </ol>
+    <div class="sub"><button class="reset" id="themeBtn" type="button">화면 테마 전환</button></div>
+  </nav>
+
+  <main>
+    <!-- PROCESS -->
+    <section class="sec" id="process">
+      <h2>전체 진행 단계</h2>
+      <p class="desc">쇼핑몰 상황에 따라 일부 단계는 동시에 진행되거나 순서가 바뀔 수 있습니다. 각 단계에서 회신이 필요한 내용은 담당 매니저가 메일로 따로 요청드립니다.</p>
+
+      <ol class="stations">
+        <li class="station">
+          <div class="dot">1</div>
+          <h3>담당 매니저 배정과 첫 안내</h3>
+          <p class="summary">이전 전담 매니저가 배정되어 전체 진행 방향을 안내드립니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>1차 안내 메일 발송 (데이터·디자인·기본 설정·PG 신청 안내)</li>
+              <li>이전 대상 데이터 범위 확인</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>기존 쇼핑몰 관리자 계정 전달</li>
+              <li>오픈 희망 일정 회신</li>
+              <li>SNS 간편로그인 사용 시 연동 계정 정보 전달</li>
+            </ul></div>
+          </div>
+        </li>
+
+        <li class="station">
+          <div class="dot">2</div>
+          <h3>데이터 검토</h3>
+          <p class="summary">기존 쇼핑몰 데이터를 살펴보고 이전 가능한 항목과 제한되는 항목을 정리합니다. 이 단계에서는 실제 이전을 진행하지 않습니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>상품·회원·게시판 데이터 구조 검토</li>
+              <li>데이터 검토 결과 안내서 전달</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>안내서 항목별로 확인 또는 수정 요청 회신</li>
+              <li>관리자에서 내려받을 수 없는 데이터는 기존 솔루션 고객센터에 백업 요청 (필요 시 안내드립니다)</li>
+            </ul></div>
+          </div>
+          <details class="more">
+            <summary>네이버 스마트스토어에서 이전하시나요?</summary>
+            <div>
+              <p>스마트스토어는 상품과 리뷰 데이터만 이전할 수 있습니다.</p>
+              <p><b>상품</b> — API 관리 메뉴에서 메이크샵 연동을 설정하면 한 번에 이전됩니다(1회 가능). 옵션, 상세설명, 정보고시, 추가 이미지, 추가 상품은 이전되지 않으며, 이전 후 스마트스토어에서 바꾼 상품 정보는 메이크샵에서 직접 수정해 주셔야 합니다.</p>
+              <p style="margin-bottom:0"><b>리뷰</b> — 관리자 계정 전달 또는 부관리자 설정 후 검토하며, 비회원 글로 이전됩니다. 실제 이전 범위는 데이터 검토 후 확정됩니다.</p>
+            </div>
+          </details>
+        </li>
+
+        <li class="station">
+          <div class="dot">3</div>
+          <h3>1차 데이터 이전</h3>
+          <p class="summary">회신해 주신 검토 의견을 반영해 데이터를 메이크샵으로 옮깁니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>상품·회원·게시판 1차 이전</li>
+              <li>항목별 이전 결과 안내서 전달</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>메이크샵 관리자에서 이전 결과 확인</li>
+              <li>오픈 일정에 맞춘 최종 이전 일자 협의</li>
+            </ul></div>
+          </div>
+          <div class="note"><b>주문 데이터는 최종 이전 때 옮깁니다.</b> 1차 이전 이후에도 기존 쇼핑몰에서 주문이 계속 들어오기 때문에, 오픈 직전 최종 이전 시 함께 처리합니다.</div>
+        </li>
+
+        <li class="station">
+          <div class="dot">4</div>
+          <h3>디자인 세팅</h3>
+          <p class="summary">메이크샵 무료 스킨 200여 종 중 1종을 골라 쇼핑몰 디자인을 세팅합니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>보내주신 자료요청서 기준으로 스킨 1차 세팅</li>
+              <li>PC·모바일 미리보기 링크 전달</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>스킨 1종 선택 (PC·모바일이 함께 대응되는 반응형 스킨 권장)</li>
+              <li>디자인 자료요청서 작성 (로고, 배너 이미지 등)</li>
+              <li>미리보기 확인 후 수정 의견 회신</li>
+            </ul></div>
+          </div>
+          <p style="margin:10px 0 0;font-size:14.5px"><a href="#design">무상 세팅 범위와 추가 비용 기준 보기</a></p>
+        </li>
+
+        <li class="station">
+          <div class="dot">5</div>
+          <h3>기본 설정과 PG 신청</h3>
+          <p class="summary">결제 서비스 심사에는 시간이 걸리므로, 이전 초기에 미리 신청해 두시길 권장합니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>설정 항목과 메뉴 위치 안내</li>
+              <li>PG 신청 여부 확인</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>임시 판매 상품 3~4개 등록 (PG 심사용)</li>
+              <li>쇼핑몰 이름, 사업자 인증, CS 정보, 고객센터·계좌 설정</li>
+              <li>위 설정 완료 후 원하시는 PG사로 신청</li>
+            </ul></div>
+          </div>
+          <div class="note"><b>네이버페이(주문형)는 오픈 후에 신청하실 수 있습니다.</b> 그 외 PG와 간편결제는 미리 신청 가능합니다.<br><span class="path">설정 &gt; 결제 설정 &gt; 전자결제(PG) 신청/관리</span></div>
+        </li>
+
+        <li class="station">
+          <div class="dot">6</div>
+          <h3>운영 정책과 SNS 연동 확인</h3>
+          <p class="summary">기존 쇼핑몰에서 쓰시던 운영 방식을 메이크샵에서도 그대로 이어가도록 맞춥니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>배송비, 회원등급, 게시판 권한 등 기존 정책 확인 요청</li>
+              <li>SNS 간편로그인 이전 시 주의사항 안내</li>
+              <li>추가 개발·커스텀 요청은 영업 담당자에게 전달</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>현재 운영 정책 회신</li>
+              <li>필요한 추가 기능이 있다면 미리 알려주기</li>
+            </ul></div>
+          </div>
+        </li>
+
+        <li class="station">
+          <div class="dot">7</div>
+          <h3>오픈 준비와 최종 데이터 이전</h3>
+          <p class="summary">오픈 일자가 정해지면 최종 데이터를 옮기고 도메인을 연결합니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>최종 데이터(주문 포함) 이전</li>
+              <li>오픈 당일 도메인 연결 세팅</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>기존 쇼핑몰 최종 데이터 백업</li>
+              <li>도메인 네임서버 변경</li>
+              <li>기존 쇼핑몰에 이전 안내 팝업 게시 (권장)</li>
+            </ul></div>
+          </div>
+          <p style="margin:10px 0 0;font-size:14.5px"><a href="#checklist" data-tab="before">오픈 전 체크리스트 열기</a></p>
+        </li>
+
+        <li class="station final">
+          <div class="dot">8</div>
+          <h3>오픈 후 정리</h3>
+          <p class="summary">메이크샵 쇼핑몰이 정상 운영되는 것을 확인한 뒤 기존 쇼핑몰을 정리합니다.</p>
+          <div class="roles">
+            <div><h4>메이크샵이 하는 일</h4><ul>
+              <li>오픈 후 체크사항과 검색엔진 설정 안내</li>
+            </ul></div>
+            <div><h4>고객님이 준비하실 일</h4><ul>
+              <li>기존 쇼핑몰 상품 판매중지</li>
+              <li>기존 쇼핑몰 주도메인 삭제</li>
+              <li>검색엔진(SEO) 설정, 네이버페이 등 바로구매 신청</li>
+            </ul></div>
+          </div>
+          <p style="margin:10px 0 0;font-size:14.5px"><a href="#checklist" data-tab="after">오픈 후 체크리스트 열기</a></p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- DESIGN SCOPE -->
+    <section class="sec" id="design">
+      <h2>디자인 지원 범위</h2>
+      <p class="desc">스킨을 고르신 뒤 자료요청서를 보내주시면 아래 범위 안에서 무상으로 세팅해 드립니다.</p>
+      <div class="scope">
+        <div class="free">
+          <h4>무상으로 세팅해 드립니다</h4>
+          <ul>
+            <li>선택하신 무료 스킨 1종 적용</li>
+            <li>자료요청서 기준 로고·배너·메뉴 구성 반영</li>
+            <li>PC·모바일 미리보기 제공과 1차 시안 검토</li>
+          </ul>
+        </div>
+        <div class="paid">
+          <h4>추가 비용이 발생할 수 있습니다</h4>
+          <ul>
+            <li>스킨 구조를 바꾸는 디자인 튜닝·커스텀</li>
+            <li>기존 쇼핑몰 디자인 재현 작업</li>
+            <li>별도 기능 개발</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size:14.5px;color:var(--muted);margin-top:12px">추가 비용은 작업 범위에 따라 달라지며, 요청 내용을 확인한 뒤 영업 담당자가 별도로 안내드립니다.</p>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="sec" id="checklist">
+      <h2>오픈 전·후 체크리스트</h2>
+      <p class="desc">체크한 내용은 지금 사용 중인 브라우저에만 저장됩니다. 오픈 전 항목과 오픈 후 항목은 진행 시점이 다르니 꼭 나눠서 확인해 주세요.</p>
+
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-before" aria-controls="panel-before" aria-selected="true" data-key="before">오픈 전 (도메인 연결 전)</button>
+        <button role="tab" id="tab-after" aria-controls="panel-after" aria-selected="false" data-key="after">오픈 후 (도메인 연결 후)</button>
+      </div>
+      <div class="progress"><span id="progText">0 / 0 완료</span><div class="bar"><span id="progBar"></span></div><button class="reset" id="resetBtn" type="button">체크 초기화</button></div>
+      <div id="panel-before" class="panel" role="tabpanel" aria-labelledby="tab-before"></div>
+      <div id="panel-after" class="panel" role="tabpanel" aria-labelledby="tab-after" hidden></div>
+    </section>
+
+    <!-- DOCS -->
+    <section class="sec" id="docs">
+      <h2>받으시는 안내 자료</h2>
+      <p class="desc">데이터 관련 안내는 아래 두 문서로 전달드립니다. 표의 확인란에 체크하거나 수정 요청을 적어 회신해 주시면 됩니다.</p>
+      <div class="docs">
+        <div class="doc"><h4>데이터 검토 결과 안내서</h4><p>2단계에서 전달. 항목별 이전 가능 여부와 확인이 필요한 내용을 담고 있습니다.</p></div>
+        <div class="doc"><h4>1차 데이터 이전 결과 안내서</h4><p>3단계에서 전달. 상품·회원·게시판 이전 결과와 최종 이전 일정 협의 내용을 담고 있습니다.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq">
+      <h2>자주 묻는 질문</h2>
+      <div class="faq">
+        <details><summary>전체 이전에 얼마나 걸리나요?</summary>
+          <p>데이터 양, 디자인 세팅 범위, 회신 속도에 따라 달라집니다. 오픈 희망일을 알려주시면 담당 매니저가 그에 맞춰 일정을 안내드립니다.</p></details>
+        <details><summary>기존 디자인을 그대로 옮길 수 있나요?</summary>
+          <p>이전 지원은 메이크샵 무료 스킨 200여 종 중 1종을 선택해 세팅하는 방식으로 진행됩니다. 기존 디자인과 비슷하게 맞추는 작업은 범위에 따라 추가 비용이 발생할 수 있습니다.</p></details>
+        <details><summary>관리자 계정을 여러 명이 함께 써도 되나요?</summary>
+          <p>메이크샵은 한 아이디로 동시에 접속할 수 없습니다. 담당자별로 부운영자 계정을 만들어 사용해 주세요.<br><span class="path">설정 &gt; 운영자 설정 &gt; 운영자 관리</span></p></details>
+        <details><summary>도메인은 언제 연결하나요?</summary>
+          <p>오픈 당일 메이크샵에서 세팅합니다. 그 전까지 도메인 메뉴는 비워두시고, 구매하신 도메인 정보만 미리 공유해 주세요.</p></details>
+        <details><summary>오픈 후 검색 노출이 줄어든 것 같아요.</summary>
+          <p>네임서버가 바뀌면 포털 검색엔진이 사이트 정보를 다시 수집하므로 반영까지 시간이 걸릴 수 있습니다. 아래 가이드로 검색엔진 설정을 진행해 주세요. 포털별 노출 처리 상태는 각 포털사를 통해 확인하셔야 합니다.</p>
+          <div class="links" style="margin-bottom:16px">
+            <a href="https://www.makeshop.co.kr/newmakeshop/home/faq_view.html?uid=1333" target="_blank" rel="noopener">메이크샵 검색엔진 최적화 기능</a>
+            <a href="https://makeshop.notion.site/SEO-18ca0b16b61081978bffe26f823399f2" target="_blank" rel="noopener">네이버 SEO 설정 가이드</a>
+            <a href="https://makeshop.notion.site/SEO-18ca0b16b61080dc87eee60d882920f9" target="_blank" rel="noopener">구글 SEO 설정 가이드</a>
+          </div></details>
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <strong>문의가 있으신가요?</strong><br>
+    진행 중 궁금한 점은 담당 매니저 메일 또는 메이크샵 채널톡으로 편하게 남겨주세요.
+  </div>
+</footer>
+
+<script>
+const DATA = {
+  before: [
+    {g:"먼저 끝내야 하는 설정", items:[
+      {t:"임시 판매 상품 3~4개 등록", r:1, d:"PG 심사에 필요합니다.", p:"상품 > 상품 관리 > 상품 등록"},
+      {t:"쇼핑몰 이름 입력", r:1, d:"콜론(:) 같은 특수기호는 빼고 입력해 주세요. 자동 발송 메일 오류를 막을 수 있습니다.", p:"설정 > 기본 설정 > 쇼핑몰 이름"},
+      {t:"사업자 인증", r:1, d:"사업자등록증으로 인증합니다.", p:"설정 > 기본 설정 > 쇼핑몰 정보"},
+      {t:"고객응대(CS) 정보 입력", r:1, d:"대표 메일, 하단 노출 전화번호와 주소를 입력합니다.", p:"설정 > 기본 설정 > CS 정보"},
+      {t:"고객센터·은행계좌 설정", r:1, d:"고객에게 보이는 고객센터 정보와 입금 계좌입니다.", p:"설정 > 기본 설정 > 고객센터 및 은행 정보"},
+      {t:"발신번호 사전 등록", r:1, d:"사업자와 같은 명의의 번호로 등록해야 문자·알림톡 세팅이 가능합니다.", p:"설정 > 기본 설정 > 발신번호 사전 등록"},
+      {t:"PG 신청", r:1, d:"위 설정을 마친 뒤 원하시는 PG사로 신청합니다.", p:"설정 > 결제 설정 > 전자결제(PG) 신청/관리"}
+    ]},
+    {g:"운영 정책", items:[
+      {t:"약관·개인정보 처리방침 확인", d:"개인정보 보호책임자와 민원 부서 정보를 입력합니다.", p:"설정 > 기본 설정 > 약관 설정"},
+      {t:"배송비 설정", d:"기본 배송비와 지역별 추가 배송비를 기존과 같게 맞춥니다.", p:"설정 > 배송 설정 > 배송 설정"},
+      {t:"결제 조건 설정", d:"최소 주문 금액, 무통장 계좌를 설정합니다.", p:"설정 > 결제 설정 > 결제 기본 설정"},
+      {t:"주문서 설정", d:"주문 처리 단계, 자동 배송완료 시기, 택배사 목록을 설정합니다.", p:"설정 > 주문 설정 > 주문서 설정"},
+      {t:"부운영자 계정 만들기", d:"한 아이디로 동시 접속이 안 되니 담당자별로 만들어 주세요.", p:"설정 > 운영자 설정 > 운영자 관리"},
+      {t:"현금영수증·세금계산서 발행 조건", d:"전자세금계산서는 충전이 필요합니다.", p:"주문 > 현금영수증 / 세금계산서"}
+    ]},
+    {g:"회원과 알림", items:[
+      {t:"회원등급과 자동 등급 조정", d:"기존 등급 체계와 혜택을 확인한 뒤 설정합니다.", p:"회원 > 회원 그룹 관리"},
+      {t:"SNS 간편가입 설정", d:"네이버·카카오·애플 등 기존에 쓰시던 로그인을 연결합니다.", p:"설정 > 회원 설정 > SNS 간편 가입"},
+      {t:"SMS 설정·충전·문구 확인", p:"회원 > SMS"},
+      {t:"카카오 알림톡 계정·템플릿 설정", p:"회원 > 카카오 알림톡/친구톡"}
+    ]},
+    {g:"화면과 게시판", items:[
+      {t:"게시판 권한 설정", d:"예) 공지사항은 관리자만 작성", p:"게시판 > 게시판 관리 > 게시판 설정"},
+      {t:"메인 화면 상품 진열", p:"상품 > 진열 > 메인 진열 설정"},
+      {t:"파비콘·모바일 아이콘 등록", p:"디자인 > 디자인 관련 기초 설정 > 파비콘/모바일 아이콘 관리"}
+    ]},
+    {g:"오픈 직전", items:[
+      {t:"도메인 메뉴는 비워두기", r:1, d:"오픈 당일 메이크샵에서 세팅합니다. 구매하신 도메인 정보만 미리 공유해 주세요.", p:"설정 > 기본 설정 > 도메인"},
+      {t:"기존 쇼핑몰에 이전 안내 팝업 게시", d:"점검 시간이나 재가입 안내 등을 미리 알리면 고객 문의가 줄어듭니다."},
+      {t:"기존 쇼핑몰 최종 데이터 백업", r:1, d:"담당 매니저가 안내하는 일정에 맞춰 진행해 주세요."},
+      {t:"도메인 네임서버 변경", r:1, d:"오픈 일정에 맞춰 도메인 구입처에서 변경합니다."}
+    ]}
+  ],
+  after: [
+    {g:"기존 쇼핑몰 정리", items:[
+      {t:"기존 쇼핑몰 상품 판매중지", r:1, d:"오픈 후에도 기존 사이트로 주문이 들어오는 것을 막습니다.", p:"기존 솔루션 관리자"},
+      {t:"기존 쇼핑몰 주도메인 삭제", d:"메이크샵 쇼핑몰이 정상 접속되는지 확인한 뒤 진행해 주세요.", p:"기존 솔루션 관리자"}
+    ]},
+    {g:"결제 서비스", items:[
+      {t:"간편결제 신청", p:"설정 > 결제 설정 > 전자결제(PG) 신청/관리 > 간편결제 탭"},
+      {t:"네이버페이(주문형)·카카오 톡체크아웃 신청", p:"설정 > 결제 설정 > 바로 구매"}
+    ]},
+    {g:"검색엔진", items:[
+      {t:"주요 페이지 SEO·오픈그래프 설정", r:1, p:"설정 > 기본 설정 > 검색 엔진 최적화"},
+      {t:"페이지별 SEO 메타 태그 설정", p:"설정 > 기본 설정 > 페이지별 SEO 관리"},
+      {t:"네이버·구글 검색 등록", d:"자주 묻는 질문의 SEO 가이드 링크를 참고해 주세요."}
+    ]}
+  ]
+};
+
+const store = {
+  get(){ try{ return JSON.parse(localStorage.getItem("ms-migration-checks")||"{}"); }catch(e){ return {}; } },
+  set(v){ try{ localStorage.setItem("ms-migration-checks", JSON.stringify(v)); }catch(e){} }
+};
+let state = store.get();
+let current = "before";
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(key){
+  const panel = document.getElementById("panel-"+key);
+  panel.innerHTML = DATA[key].map((grp,gi)=>`
+    <div class="group"><h4>${esc(grp.g)}</h4>
+    ${grp.items.map((it,ii)=>{
+      const id = `${key}-${gi}-${ii}`; const on = !!state[id];
+      return `<label class="check${on?" done":""}" for="${id}">
+        <input type="checkbox" id="${id}" ${on?"checked":""}>
+        <span class="t">${esc(it.t)}${it.r?"<em>필수</em>":""}</span>
+        ${it.d||it.p?`<span class="d">${it.d?esc(it.d):""}${it.p?`${it.d?"<br>":""}<span class="path">${esc(it.p)}</span>`:""}</span>`:""}
+      </label>`;
+    }).join("")}</div>`).join("");
+  panel.querySelectorAll("input").forEach(cb=>cb.addEventListener("change",()=>{
+    state[cb.id]=cb.checked; if(!cb.checked) delete state[cb.id];
+    cb.closest(".check").classList.toggle("done",cb.checked);
+    store.set(state); progress();
+  }));
+}
+function progress(){
+  const ids=[]; DATA[current].forEach((g,gi)=>g.items.forEach((_,ii)=>ids.push(`${current}-${gi}-${ii}`)));
+  const done=ids.filter(i=>state[i]).length;
+  document.getElementById("progText").textContent=`${done} / ${ids.length} 완료`;
+  document.getElementById("progBar").style.width=(done/ids.length*100)+"%";
+}
+function show(key){
+  current=key;
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.key===key));
+  document.getElementById("panel-before").hidden = key!=="before";
+  document.getElementById("panel-after").hidden = key!=="after";
+  progress();
+}
+render("before"); render("after"); show("before");
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.key)));
+document.querySelectorAll("a[data-tab]").forEach(a=>a.addEventListener("click",()=>show(a.dataset.tab)));
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  Object.keys(state).filter(k=>k.startsWith(current+"-")).forEach(k=>delete state[k]);
+  store.set(state); render(current); progress();
+});
+
+/* theme toggle */
+document.getElementById("themeBtn").addEventListener("click",()=>{
+  const root=document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+});
+
+/* toc highlight */
+const links=[...document.querySelectorAll("nav.toc a")];
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ links.forEach(l=>l.classList.toggle("on", l.getAttribute("href")==="#"+e.target.id)); }
+}),{rootMargin:"-30% 0px -60% 0px"});
+document.querySelectorAll("main .sec").forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
