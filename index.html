@@ -234,6 +234,14 @@
     border-radius:6px;padding:2px 7px;margin-left:auto}
   .fcard h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.02em}
   .fcard p{margin:0 0 18px;font-size:13.6px;color:var(--gray);flex:1;line-height:1.6}
+  .linkcard{text-decoration:none;color:inherit;display:flex;flex-direction:row;align-items:flex-start;gap:14px}
+  .linkcard .ct{flex:1;display:flex;flex-direction:column}
+  .linkcard h3{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+  .linkcard h3 .cnt{font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-100);
+    padding:2px 8px;border-radius:20px;letter-spacing:0}
+  .linkcard p{margin-bottom:12px}
+  .linkcard .go{font-size:13px;font-weight:600;color:var(--blue)}
+  .linkcard:hover .go{text-decoration:underline}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--blue);color:#fff;
     border:none;border-radius:10px;padding:11px 16px;font-size:13.8px;font-weight:600;cursor:pointer;
     font-family:inherit;transition:background .14s}
@@ -371,6 +379,30 @@
         <p>팀 공통 서식입니다. 원본을 그대로 두고 복사본으로 작성하며, 파일명은 구분_몰이름_날짜 규칙을 따라 주세요.</p>
       </div>
       <div class="grid-cards" id="tplCards"></div>
+
+      <div class="section-head" style="margin-top:44px">
+        <div class="k">DESIGN GUIDES</div>
+        <h2>디자인 운영 가이드</h2>
+        <p>디자인 확정 후 상점에 전달하는 스킨별 운영 가이드입니다. 스킨 타입에 맞는 폴더에서 해당 스킨의 <b>사이트 운영 가이드</b>와 <b>배너교체 요청서</b>를 받아 전달해 주세요.</p>
+      </div>
+      <div class="grid-cards">
+        <a class="fcard linkcard" href="https://cocen365-my.sharepoint.com/:f:/p/eboh/IgBc8TAqAUF0SJHno0i5yxMtAT9bFH5m82Zam4-b_mFwcoY?e=IfxVIU" target="_blank" rel="noopener">
+          <div class="ic">📱</div>
+          <div class="ct">
+            <h3>반응형 스킨 가이드 <span class="cnt">5종</span></h3>
+            <p>HOLLYWOOD · Onstore · Smartsync · ENOUGH · Fortnight — 스킨별 운영 가이드와 배너교체 요청서</p>
+            <span class="go">OneDrive에서 열기 ↗</span>
+          </div>
+        </a>
+        <a class="fcard linkcard" href="https://cocen365-my.sharepoint.com/:f:/p/eboh/IgCkDX3EmYYjS4GQJLix1MTyAfUc00C-E0wsOLudcanri70?e=Kj9UbM" target="_blank" rel="noopener">
+          <div class="ic">🖥️</div>
+          <div class="ct">
+            <h3>적응형 스킨 가이드</h3>
+            <p>적응형 디자인 스킨에 대한 운영 가이드 자료</p>
+            <span class="go">OneDrive에서 열기 ↗</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -471,7 +503,7 @@ window.PROCESS_STAGES = [
       "무료 스킨 1종 선택 시 메인페이지 기본 세팅(로고·배너·카테고리명) 무상 지원",
       "브랜드 전체 리뉴얼·맞춤 구축은 작업 범위에 따라 별도 상담·견적",
       "PG 심사용 임시 상품 3~4개 등록 · 기본설정 1~4번 우선 요청",
-      "채널톡 상담 경로 안내 · 세팅 매뉴얼(엑셀) 전달"
+      "세팅 매뉴얼(엑셀) 전달"
     ],
     doc: "착수 안내 메일 · 메이크샵 기본기능 세팅 매뉴얼"
   },
@@ -495,22 +527,25 @@ window.PROCESS_STAGES = [
     points: [
       "비밀번호는 구조상 이전이 불가한 경우, 데이터팀 검토 결과에 따라 임시 비밀번호 규칙(휴대폰 뒷 4자리 등)으로 생성·안내",
       "회원그룹 신규 생성 · 적립금 유효기간 기준 안내",
-      "주문·게시판은 오픈 전 최신 데이터로 일괄 이전 예정 고지"
+      "주문·게시판은 오픈 전 최신 데이터로 일괄 이전 예정 고지",
+      "회신 기한 명시 · 미회신 시 확인 간주 후 다음 단계 진행"
     ],
     doc: "1차 이전 결과 템플릿 · 이전 결과 메일"
   },
   {
     phase: "디자인",
     title: "디자인 셋팅",
-    ours: "선택하신 스킨에 맞춰 디자인 요청서를 전달해 로고·배너 등 필요한 자료를 수급받은 뒤, 메인페이지 무상 세팅을 진행하고 완료된 시안을 안내합니다.",
-    client: "디자인 요청서를 작성하고 자료를 전달한 뒤, 완성된 시안을 확인해 수정사항을 일괄 회신합니다.",
+    ours: "선택하신 스킨에 맞춰 디자인 요청서를 전달해 로고·배너 등 필요한 자료를 수급받은 뒤, 메인페이지 무상 세팅을 진행하고 완료된 시안을 안내합니다. 확정 후에는 직접 운영하실 수 있도록 사이트 운영 가이드를 전달합니다.",
+    client: "디자인 요청서를 작성하고 자료를 전달한 뒤, 완성된 시안을 확인해 수정사항을 일괄 회신하고 최종 확정합니다.",
     points: [
-      "스킨 선택 → 디자인 요청서 전달 → 자료 수급 → 세팅 → 시안 확인 순으로 진행",
+      "스킨 선택 → 요청서 전달 → 자료 수급 → 세팅 → 시안 확인 → 확정 → 운영 가이드 전달 순으로 진행",
       "메인페이지 무상 세팅 범위(로고·배너·카테고리명) 안내",
       "시안 수정사항은 항목별로 일괄 정리해 회신 요청",
+      "회신 기한 명시 · 미회신 시 현재 시안으로 확정 간주",
+      "확정 후 스킨별 사이트 운영 가이드 · 배너교체 요청서 전달",
       "무상 범위 외 커스텀·튜닝은 별도 비용 발생 고지"
     ],
-    doc: "디자인 요청서 안내 메일 · 디자인 시안 안내 메일"
+    doc: "디자인 요청서 안내 메일 · 디자인 시안 안내 메일 · 운영 가이드 전달 메일"
   },
   {
     phase: "오픈 준비",
@@ -609,7 +644,7 @@ window.MAIL_TEMPLATES = [
 ----------------------
 
 위 내용 확인 및 회신 부탁드리겠습니다.
-추가 궁금하신 점은 본 이메일 또는 메이크샵 채널톡으로 문의 부탁드립니다.
+추가 궁금하신 점은 본 이메일로 문의 부탁드립니다.
 감사합니다. :)
 
 {{pm}} 드림`
@@ -647,7 +682,7 @@ window.MAIL_TEMPLATES = [
     title: "1차 데이터 이전 결과 안내",
     desc: "1차 데이터 이전 완료 후 결과를 첨부파일로 전달하고 특이사항 공유를 요청하는 메일.",
     subject: "[메이크샵] {{mall}} 1차 데이터 이전 결과 안내",
-    fields: ["mall","person","pm"],
+    fields: ["mall","person","pm","deadline"],
     body:
 `{{person}}, 안녕하세요.
 메이크샵 {{pm}}입니다.
@@ -659,6 +694,17 @@ window.MAIL_TEMPLATES = [
 
 주문 데이터는 참고용 자료이므로 1차 데이터 이전 시에는 진행하지 않으며, 사이트 오픈 전 최종 데이터로 일괄 이전할 예정입니다.
 사전에 이전이 필요하신 경우 말씀 주시면 처리해드리겠습니다.
+
+----------------------
+[확인 회신 요청]
+
+원활한 일정 진행을 위해 {{deadline}}까지 아래 중 해당하는 항목으로 회신 부탁드립니다.
+
+  □ 안내주신 내용 확인했으며, 이대로 다음 단계 진행 부탁드립니다.
+  □ 확인이 필요한 사항이 있습니다. → 내용 :
+
+※ {{deadline}}까지 별도 회신이 없으실 경우, 안내드린 내용으로 확인하신 것으로 간주하고 다음 단계를 진행합니다.
+----------------------
 
 감사합니다.
 
@@ -691,7 +737,7 @@ window.MAIL_TEMPLATES = [
     title: "디자인 세팅 완료 · 시안 확인 안내",
     desc: "메인페이지 세팅 완료 후 시안 링크를 전달하고, 수정사항을 일괄 정리해 요청하도록 안내하는 메일.",
     subject: "[메이크샵] {{mall}} 디자인 세팅 완료 및 시안 확인 안내",
-    fields: ["mall","person","pm"],
+    fields: ["mall","person","pm","deadline"],
     body:
 `{{person}}, 안녕하세요.
 메이크샵 {{pm}}입니다.
@@ -705,14 +751,66 @@ window.MAIL_TEMPLATES = [
 시안 확인 후 수정 또는 변경이 필요한 부분이 있으시면, 항목별로 일괄 정리하여 전달 부탁드립니다.
 전달주신 내용은 내부 작업 가능 여부 검토 후 반영해드리겠습니다.
 
+----------------------
+[확인 회신 요청]
+
+원활한 일정 진행을 위해 {{deadline}}까지 아래 중 해당하는 항목으로 회신 부탁드립니다.
+
+  □ 시안 확인했으며, 이대로 확정 부탁드립니다.
+  □ 수정이 필요한 사항이 있습니다. → 내용 :
+
+※ 수정사항은 일괄로 정리해 회신해 주시면 한 번에 반영해드립니다.
+※ {{deadline}}까지 별도 회신이 없으실 경우, 현재 시안으로 확정하신 것으로 간주하고 다음 단계를 진행합니다.
+※ 확정 이후 발생하는 추가 수정은 무상 지원 범위를 벗어날 수 있어, 별도 상담·견적이 필요할 수 있습니다.
+----------------------
+
 확인 중 궁금하신 점이 있으시면 언제든 편하게 연락 부탁드립니다.
 감사합니다.
 
 {{pm}} 드림`
   },
   {
+    id: "design_guide",
+    tab: "⑥ 운영 가이드 전달",
+    title: "디자인 확정 · 사이트 운영 가이드 전달",
+    desc: "디자인 컨펌 완료 후, 상점에서 직접 메인페이지를 운영할 수 있도록 운영 가이드와 배너교체 요청서를 전달하는 메일. 첨부 파일은 양식 자료실의 디자인 운영 가이드에서 스킨별로 받으세요.",
+    subject: "[메이크샵] {{mall}} 디자인 세팅 완료 및 사이트 운영 가이드 전달",
+    fields: ["mall","person","pm","skin"],
+    body:
+`{{person}}, 안녕하세요.
+메이크샵 {{pm}}입니다.
+
+회신해주신 내용을 반영하여 디자인 세팅이 최종 완료되었습니다.
+이후 직접 운영하실 수 있도록, 무상으로 세팅해드린 디자인 스킨 '{{skin}}'의 작업 범위인 메인페이지 기준으로 수정 방법을 정리한 가이드를 첨부드립니다.
+
+[첨부 자료]
+· 사이트 운영 가이드 — 로고·메인배너·아이콘·상품 영역 등 각 영역의 이미지 및 텍스트 수정 방법
+· 배너교체 요청서 — 영역별 권장 이미지 사이즈와 파일 형식 정리
+
+[가이드 주요 내용]
+· Part 1. 디자인 편집 — 디자인 > 디자인 스킨 관리 > 디자인 스킨 관리
+· Part 2. 이미지 등록 방법 — 마이FTP / 신이미지뱅크 활용
+· Part 3. 소스 변경 방법 — 로고, PC·모바일 메인배너, 아이콘, 상품·이벤트 영역
+· Part 4. 상품 진열 방법 — 상품 > 진열 > 메인 진열 상품 관리
+
+가이드에 이미지 권장 사이즈가 함께 안내되어 있으니, 배너 교체 시 해당 규격에 맞춰 제작하시면 화면이 깨지지 않고 적용됩니다.
+
+----------------------
+[참고사항]
+
+· 본 가이드는 무상 세팅 범위인 메인페이지 기준으로 작성되었습니다.
+· 스킨 구조 변경, 레이아웃 커스텀 등 무상 범위를 벗어나는 작업은 별도 상담 및 견적이 필요합니다.
+· 소스 수정 전 기존 소스를 별도로 백업해두시면 복구가 수월합니다.
+----------------------
+
+운영 중 가이드 관련하여 궁금하신 점이 있으시면 편하게 문의 부탁드립니다.
+감사합니다.
+
+{{pm}} 드림`
+  },
+  {
     id: "prep",
-    tab: "⑥ 오픈 준비·일정",
+    tab: "⑦ 오픈 준비·일정",
     title: "오픈 준비 · 일정 및 사전 확인 안내",
     desc: "오픈 일정 협의부터 최종 데이터 이전·도메인 확인·안내팝업·체크리스트까지 오픈 전 준비사항을 종합 안내하는 메일.",
     subject: "[메이크샵] {{mall}} 사이트 오픈 준비 및 사전 확인 사항 안내",
@@ -764,7 +862,7 @@ window.MAIL_TEMPLATES = [
   },
   {
     id: "nameserver",
-    tab: "⑦ 네임서버 변경",
+    tab: "⑧ 네임서버 변경",
     title: "도메인 선처리 완료 · 네임서버 변경 안내",
     desc: "대표 도메인 선처리 완료 후, 고객이 네임서버를 메이크샵으로 변경하도록 요청하는 메일.",
     subject: "[메이크샵] {{mall}} 도메인 네임서버 변경 요청 안내",
@@ -794,7 +892,7 @@ window.MAIL_TEMPLATES = [
   },
   {
     id: "postopen",
-    tab: "⑧ 오픈 후 체크",
+    tab: "⑨ 오픈 후 체크",
     title: "사이트 오픈 후 체크사항 안내",
     desc: "오픈 완료 후 기존 솔루션 판매중지·도메인 삭제·검색엔진(SEO) 설정 등을 안내하는 메일.",
     subject: "[메이크샵] {{mall}} 사이트 오픈 후 체크사항 안내",
@@ -824,7 +922,7 @@ https://www.makeshop.co.kr/newmakeshop/home/faq_view.html?uid=1333
 
 ※ 실제 반영 시점 및 노출 여부는 각 포털사이트의 검색 로봇 정책에 따라 결정됩니다. 포털 검색 노출 관련 문의는 각 포털사(네이버, 구글 등)를 통해 확인해 주셔야 하며, 메이크샵에서는 확인이 어려운 점 양해 부탁드립니다.
 
-오픈 이후 오류나 이슈사항이 있으시면 제작관리팀 채널톡으로 연락 부탁드리겠습니다.
+오픈 이후 오류나 이슈사항이 있으시면 본 이메일로 연락 부탁드리겠습니다.
 감사합니다.
 
 {{pm}} 드림`
@@ -935,6 +1033,8 @@ const FIELD_DEFS={
   prev:{label:"기존(타사) 솔루션",ph:"예: 카페24 / 넥스트몰 / 고도몰",token:"{{prev}}",fallback:"[기존 솔루션]",opt:true},
   acct:{label:"메이크샵 계정",ph:"예: samplemall",token:"{{acct}}",fallback:"[계정]",opt:true},
   domain:{label:"대표 도메인",ph:"예: https://www.samplemall.co.kr/",token:"{{domain}}",fallback:"[대표 도메인]",opt:true},
+  deadline:{label:"회신 기한",ph:"예: 9월 22일(월)",token:"{{deadline}}",fallback:"[회신 기한]",opt:true},
+  skin:{label:"디자인 스킨명",ph:"예: [반응형]HOLLYWOOD",token:"{{skin}}",fallback:"[스킨명]",opt:true},
 };
 const stageSel=document.getElementById("stageSel"),stageDesc=document.getElementById("stageDesc"),
   dynFields=document.getElementById("dynFields");
