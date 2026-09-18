@@ -98,7 +98,7 @@
     box-shadow:var(--shadow-sm);margin-bottom:12px}
   .pjcard .hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
   .pjcard .hd h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.02em}
-  .pjcard .hd .acct{font-size:12px;color:var(--gray-2);font-family:ui-monospace,monospace}
+  
   .pjcard .meta{font-size:12.5px;color:var(--gray);margin-bottom:13px;display:flex;gap:14px;flex-wrap:wrap}
   .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11.5px;font-weight:600;white-space:nowrap}
   .badge.st-착수{background:var(--line-2);color:var(--gray)}
@@ -1270,18 +1270,18 @@ const PROJECTS = [
    pct:10, stage:"착수", diff:3, sub:{구축:10, DB이전:null, 디자인:null, 퍼블리싱:null, 개발:null}},
 ];
 const CLOSED = [
-  {name:"주리에떼", pm:"오은비/서우진", due:"2026-06-09", stage:"오픈완료", diff:3},
-  {name:"디에스트레이딩", pm:"오은비/서우진", due:"2026-04-22", stage:"오픈완료", diff:2},
-  {name:"인트로스포츠", pm:"오은비/윤명진", due:"2026-06-24", stage:"오픈완료", diff:3},
-  {name:"엉파", pm:"오은비/서우진", due:"2026-07-13", stage:"오픈완료", diff:4},
-  {name:"노바복싱", pm:"오은비/윤명진", due:"2026-07-23", stage:"오픈완료", diff:3},
-  {name:"별표수세미", pm:"오은비/윤명진", due:"2026-07-31", stage:"오픈완료", diff:3},
-  {name:"메종드온", pm:"오은비/김용덕", due:"2026-08-31", stage:"오픈완료", diff:3},
-  {name:"두인양말", pm:"오은비/김호", due:"2026-08-21", stage:"오픈완료", diff:3},
-  {name:"에쓰씨엔지니어링", pm:"오은비/임근진", due:"2026-09-07", stage:"오픈완료", diff:5},
-  {name:"쿨샤", pm:"오은비/강중훈", due:"2026-08-05", stage:"오픈취소", diff:1},
-  {name:"세림식품원료", pm:"박선미·오은비/강중훈", due:"미정", stage:"오픈취소", diff:4},
-  {name:"익스트릿", pm:"박선미·오은비", due:"2027", stage:"오픈연기", diff:3},
+  {name:"주리에떼", pm:"오은비", due:"2026-06-09", stage:"오픈완료", diff:3},
+  {name:"디에스트레이딩", pm:"오은비", due:"2026-04-22", stage:"오픈완료", diff:2},
+  {name:"인트로스포츠", pm:"오은비", due:"2026-06-24", stage:"오픈완료", diff:3},
+  {name:"엉파", pm:"오은비", due:"2026-07-13", stage:"오픈완료", diff:4},
+  {name:"노바복싱", pm:"오은비", due:"2026-07-23", stage:"오픈완료", diff:3},
+  {name:"별표수세미", pm:"오은비", due:"2026-07-31", stage:"오픈완료", diff:3},
+  {name:"메종드온", pm:"오은비", due:"2026-08-31", stage:"오픈완료", diff:3},
+  {name:"두인양말", pm:"오은비", due:"2026-08-21", stage:"오픈완료", diff:3},
+  {name:"에쓰씨엔지니어링", pm:"오은비", due:"2026-09-07", stage:"오픈완료", diff:5},
+  {name:"쿨샤", pm:"오은비", due:"2026-08-05", stage:"오픈취소", diff:1},
+  {name:"세림식품원료", pm:"박선미/오은비", due:"미정", stage:"오픈취소", diff:4},
+  {name:"익스트릿", pm:"박선미/오은비", due:"2027", stage:"오픈연기", diff:3},
 ];
 
 (function renderStatus(){
@@ -1345,7 +1345,7 @@ const CLOSED = [
     }).join("");
   }
 
-  function maskName(n){if(!n)return n;const c=[...n];if(c.length===1)return n;if(c.length===2)return c[0]+c[1]+'*';return c[0]+c[1]+'*'.repeat(c.length-2);}
+  function maskName(n){if(!n)return n;const c=[...n];if(c.length===1)return n;if(c.length===2)return c[0]+'*';return c[0]+c[1]+'*'.repeat(c.length-2);}
 function dday(due){
     if(!due||due==="미정") return {txt:"일정 미정", cls:""};
     const today=new Date(SNAPSHOT_DATE), d=new Date(due);

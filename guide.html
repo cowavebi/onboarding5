@@ -33,7 +33,7 @@ body{margin:0;background:var(--bg);color:var(--text);
   font-size:16px;line-height:1.7;word-break:keep-all}
 a{color:var(--blue)}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;box-sizing:border-box}
 
 /* hero */
 header.hero{border-bottom:1px solid var(--line)}
@@ -100,7 +100,9 @@ details.more > div{padding:0 16px 14px;font-size:14.5px}
 .scope ul{margin:0;padding-left:18px}
 
 /* checklist */
-.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:0}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:0;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex-shrink:0}
 .tabs button{font:inherit;font-weight:600;background:none;border:0;padding:10px 18px;color:var(--muted);
   cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
 .tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
@@ -134,7 +136,8 @@ footer strong{color:var(--ink)}
 @media (max-width:860px){
   .hero-body{grid-template-columns:1fr;gap:24px;padding:24px 0 40px}
   .layout{grid-template-columns:1fr;gap:0;padding-top:24px}
-  nav.toc{position:static;margin-bottom:32px;overflow-x:auto}
+  nav.toc{position:static;margin-bottom:32px;overflow-x:auto;scrollbar-width:none}
+  nav.toc::-webkit-scrollbar{display:none}
   nav.toc ol{display:flex;border-left:0;border-bottom:2px solid var(--line);white-space:nowrap}
   nav.toc a{border-left:0;border-bottom:2px solid transparent;margin:0 0 -2px;padding:8px 12px}
   nav.toc a.on{border-bottom-color:var(--blue)}
@@ -143,6 +146,48 @@ footer strong{color:var(--ink)}
   .roles > div + div{border-left:0;border-top:1px solid var(--line)}
   .station{padding-left:56px}
 }
+
+
+@media (max-width:560px){
+  .wrap{padding:0 16px}
+  .brand{padding:18px 0;font-size:14.5px}
+  .hero h1{font-size:26px;line-height:1.28}
+  .hero p.lead{font-size:15.5px}
+  .hero-body{gap:16px;padding:16px 0 28px}
+  .route text{font-size:11px}
+  .route text.big{font-size:12.5px}
+  .layout{padding-top:20px;padding-bottom:56px}
+  .sec{margin-bottom:48px}
+  h2{font-size:22px}
+  .sec > p.desc{font-size:14.5px;margin-bottom:20px}
+  /* 타임라인 원 크기 축소 + 잘림 방지 */
+  .stations::before{left:14px;width:3px}
+  .station{padding:0 0 28px 44px}
+  .dot{width:32px;height:32px;border-width:3px;font-size:13px}
+  .station h3{font-size:17px}
+  .station .summary{font-size:14.5px}
+  .roles > div{padding:14px 14px}
+  .roles h4{font-size:13px}
+  .roles ul{font-size:14px;padding-left:16px}
+  .note{font-size:13.5px;padding:10px 12px}
+  .path{font-size:12px}
+  details.more summary{padding:9px 12px;font-size:13.5px}
+  details.more > div{padding:0 12px 12px;font-size:13.5px}
+  .scope > div{padding:14px 14px}
+  .tabs button{padding:10px 12px;font-size:13.5px}
+  .progress{gap:8px;font-size:13px;flex-wrap:wrap}
+  .progress .bar{flex:1 1 100%}
+  .check{padding:11px 2px}
+  .check .t{font-size:14.5px}
+  .check .d{font-size:13.5px}
+  .doc{padding:14px 16px}
+  .doc p{font-size:14px}
+  .faq summary{padding:14px 0;font-size:14.5px}
+  .faq details p{font-size:14px}
+  .links a{padding:5px 10px;font-size:13px}
+  footer{padding:28px 0;font-size:13.5px}
+}
+
 @media print{nav.toc,.tabs,.reset{display:none}.layout{display:block}.panel{display:block!important}}
 </style>
 </head>
